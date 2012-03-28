@@ -88,10 +88,11 @@ def SessionFactoryConfig(
       ZODB root.
 
     """
-    def factory(request):
+    def factory(request, get_connection=get_connection, 
+                new_session_id=new_session_id):
         try:
-            conn = get_connection(request, dbname)
-        except TypeError: # no multidb support
+            conn = get_connection(request, dbname=dbname)
+        except TypeError: # pragma: no cover (no multidb support)
             conn = get_connection(request)
         root = conn.root()
         sessions = root.get(rootname)
@@ -128,6 +129,7 @@ def SessionFactoryConfig(
         if session is None:
             session = sessions.get(session_id)
             session._v_new = True
+            session.id = session_id
 
         return session
 
