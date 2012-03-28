@@ -1,0 +1,11 @@
+*.egg
+*.egg-info
+*.pyc
+*~
+.coverage
+.tox/
+nosetests.xml
+pyramid_zodbsessions/coverage.xml
+build/
+dist/
+env*/
